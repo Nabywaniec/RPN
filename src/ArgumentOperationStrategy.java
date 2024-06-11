@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -31,39 +29,13 @@ public class ArgumentOperationStrategy {
         final Operator operator = OPERATORS.get(tokenOperator.getValue());
 
         if (operator.isSingleArgumentOperator()) {
-            return calculateSingleArgumentOperation(numbersToCalculate, operator);
+            return singleArgumentOperation.calculate(numbersToCalculate, operator);
         } else if (operator.isPairArgumentOperator()) {
-            return calculatePairArgumentOperation(numbersToCalculate, operator);
+            return pairArgumentOperation.calculate(numbersToCalculate, operator);
         } else if (operator.isMultipleArgumentOperator()) {
-            return calculateMultipleArgumentOperation(numbersToCalculate, operator);
+            return multipleArgumentOperation.calculate(numbersToCalculate, operator);
         }
 
         throw new RuntimeException();
-
-    }
-
-    private Double calculateMultipleArgumentOperation(
-            final Stack<Double> numbersToCalculate,
-            final Operator operator) {
-        List<Double> arguments = new ArrayList<>();
-        while (! numbersToCalculate.empty()) {
-            arguments.add(numbersToCalculate.pop());
-        }
-        return multipleArgumentOperation.calculate(arguments, operator);
-    }
-
-    private Double calculatePairArgumentOperation(
-            final Stack<Double> numbersToCalculate,
-            final Operator operator) {
-        final Double firstArgument = numbersToCalculate.pop();
-        final Double secondArgument = numbersToCalculate.pop();
-        return pairArgumentOperation.calculate(firstArgument, secondArgument, operator);
-    }
-
-    private Double calculateSingleArgumentOperation(
-            final Stack<Double> numbersToCalculate,
-            final Operator operator) {
-        final Double oneArgument = numbersToCalculate.pop();
-        return singleArgumentOperation.calculate(oneArgument, operator);
     }
 }

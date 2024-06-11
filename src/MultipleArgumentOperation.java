@@ -1,10 +1,18 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
-public class MultipleArgumentOperation {
+public class MultipleArgumentOperation implements ArgumentOperation {
 
+    @Override
     public Double calculate(
-            final List<Double> arguments,
+            final Stack<Double> numbersToCalculate,
             final Operator operator) {
+        final List<Double> arguments = new ArrayList<>();
+        while (!numbersToCalculate.empty()) {
+            arguments.add(numbersToCalculate.pop());
+        }
+
         if (operator == Operator.MAX) {
             return maximum(arguments);
         }

@@ -1,9 +1,13 @@
-public class PairArgumentOperation {
+import java.util.Stack;
 
+public class PairArgumentOperation implements ArgumentOperation {
+
+    @Override
     public Double calculate(
-            final Double firstArgument,
-            final Double secondArgument,
+            final Stack<Double> numbersToCalculate,
             final Operator operator) {
+        final Double firstArgument = numbersToCalculate.pop();
+        final Double secondArgument = numbersToCalculate.pop();
         switch (operator) {
             case ADD:
                 return secondArgument + firstArgument;
@@ -16,6 +20,4 @@ public class PairArgumentOperation {
         }
         throw new RuntimeException();
     }
-
-
 }

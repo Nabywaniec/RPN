@@ -1,12 +1,12 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class Expression {
+public class RPNExpression {
     private static final String DELIMITER = " ";
 
     private final List<Token> tokens;
 
-    public Expression(final String expressionAsString) {
+    public RPNExpression(final String expressionAsString) {
         this.tokens = Arrays.stream(expressionAsString.split(DELIMITER)).map(Token::new).toList();
     }
 

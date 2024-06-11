@@ -6,9 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class
-CalculatorTest {
-    private final Calculator calculator = new Calculator(new ArgumentOperationStrategy(
+class RPNCalculatorTest {
+    private final RPNCalculator RPNCalculator = new RPNCalculator(new ArgumentOperationStrategy(
             new SingleArgumentOperation(), new PairArgumentOperation(), new MultipleArgumentOperation()));
 
 
@@ -18,10 +17,10 @@ CalculatorTest {
             final String expression,
             final Double result) {
         // given
-        final Expression sentence = new Expression(expression);
+        final RPNExpression sentence = new RPNExpression(expression);
 
         // when
-        Double calculated = calculator.calculate(sentence);
+        Double calculated = RPNCalculator.calculate(sentence);
 
         // then
         assertEquals(result, calculated);
