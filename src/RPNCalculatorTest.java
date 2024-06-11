@@ -7,9 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class RPNCalculatorTest {
-    private final RPNCalculator RPNCalculator = new RPNCalculator(new ArgumentOperationStrategy(
-            new SingleArgumentOperation(), new PairArgumentOperation(), new MultipleArgumentOperation()));
-
+    private final RPNCalculator RPNCalculator = new RPNCalculator(new ArgumentOperationStrategy());
 
     @ParameterizedTest
     @MethodSource("sentenceWithCalculatedResult")
@@ -36,5 +34,4 @@ class RPNCalculatorTest {
                 Arguments.of("2 7 + 3 / 14 3 - 4 x + 2 /", 23.5),
                 Arguments.of("12 2 3 4 x 10 5 / + x +", 40.0));
     }
-
 }

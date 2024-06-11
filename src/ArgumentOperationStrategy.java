@@ -1,41 +1,32 @@
 import java.util.Map;
 import java.util.Stack;
 
+import operator.AbsOperator;
+import operator.AddOperator;
+import operator.ArgumentOperator;
+import operator.DivideOperator;
+import operator.MaxOperator;
+import operator.MultiplyOperator;
+import operator.SubstractOperator;
+
 public class ArgumentOperationStrategy {
-    private static final Map<String, Operator> OPERATORS = Map.of(
-            "+", Operator.ADD,
-            "-", Operator.REMOVE,
-            "x", Operator.MULTIPLY,
-            "/", Operator.DIVIDE,
-            "a", Operator.ABS,
-            "m", Operator.MAX);
-    private final SingleArgumentOperation singleArgumentOperation;
-    private final PairArgumentOperation pairArgumentOperation;
-    private final MultipleArgumentOperation multipleArgumentOperation;
+    private static final Map<String, ArgumentOperator> OPERATORS = Map.of(
+            "+", new AddOperator(),
+            "-", new SubstractOperator(),
+            "x", new MultiplyOperator(),
+            "/", new DivideOperator(),
+            "a", new AbsOperator(),
+            "m", new MaxOperator());
 
-
-    public ArgumentOperationStrategy(
-            final SingleArgumentOperation singleArgumentOperation,
-            final PairArgumentOperation pairArgumentOperation,
-            final MultipleArgumentOperation multipleArgumentOperation) {
-        this.singleArgumentOperation = singleArgumentOperation;
-        this.pairArgumentOperation = pairArgumentOperation;
-        this.multipleArgumentOperation = multipleArgumentOperation;
-    }
+    public ArgumentOperationStrategy() {}
 
     public Double calculate(
             final Token tokenOperator,
             final Stack<Double> numbersToCalculate) {
-        final Operator operator = OPERATORS.get(tokenOperator.getValue());
-
-        if (operator.isSingleArgumentOperator()) {
-            return singleArgumentOperation.calculate(numbersToCalculate, operator);
-        } else if (operator.isPairArgumentOperator()) {
-            return pairArgumentOperation.calculate(numbersToCalculate, operator);
-        } else if (operator.isMultipleArgumentOperator()) {
-            return multipleArgumentOperation.calculate(numbersToCalculate, operator);
+        if (!OPERATORS.containsKey(tokenOperator.getValue())) {
+            throw new RuntimeException();
         }
-
-        throw new RuntimeException();
+        final ArgumentOperator operator = OPERATORS.get(tokenOperator.getValue());
+        return operator.calculate(numbersToCalculate);
     }
 }

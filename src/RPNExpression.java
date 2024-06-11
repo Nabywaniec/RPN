@@ -3,7 +3,6 @@ import java.util.List;
 
 public class RPNExpression {
     private static final String DELIMITER = " ";
-
     private final List<Token> tokens;
 
     public RPNExpression(final String expressionAsString) {
